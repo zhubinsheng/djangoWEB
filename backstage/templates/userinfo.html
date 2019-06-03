@@ -1,0 +1,449 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh" data-livestyle-extension="available" class="gr__django_cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>个人资料信息</title>
+    <meta name="theme-color" content="#ffffff">
+    <link href="{% static 'backstage/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'backstage/css/app-4b73176c84.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'backstage/css/toastr.min.css' %}">
+    <script src="https://hm.baidu.com/hm.js?9b0ccd50ff8935f331889174a8280dc2"></script>
+    <script type="text/javascript" async="" src="{% static 'backstage/js/dc.js' %}"></script>
+    <script src="{% static 'backstage/js/jquery.min.js' %}"></script>
+    <script src="{% static 'backstage/js/bootstrap.min.js' %}"></script>
+    <script>
+        var _hmt = _hmt || [];
+		(function() {
+		  var hm = document.createElement("script");
+		  hm.src = "https://hm.baidu.com/hm.js?9b0ccd50ff8935f331889174a8280dc2";
+		  var s = document.getElementsByTagName("script")[0]; 
+		  s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+</head>
+
+<body data-gr-c-s-loaded="true">
+    <div class="page__wrapper page--profile">
+        <main class="main-content">
+        	<div class="hero hero--profile" style="text-align: center;">
+        		<h1 style="    display: inline-block;
+    height: auto;
+    width: auto;
+    position: absolute;
+    top: 100px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin: 0;
+    padding: 0;">账号资料</h1>
+			</div>
+            <div class="container-fluid">
+                <div class="profile row">
+                    <div class="col-md-12 profile__content">
+                        <div class="tabs">
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="settings">
+                                    <div class="section">
+                                        <ul class="profile__settings">
+                                            <li class="settings__section">
+                                                <h3>
+										            个人信息
+									            </h3>
+                                                <ul class="settings__subsection">
+                                                    <li>
+                                                     <a href="javascript:;" class="btn btn-primary btn-outline pull-right" data-toggle="form" data-target="#change-username" data-change=".change-username">
+									                        <span>编辑</span>
+									                    </a>
+                                                        <h4>昵称</h4>
+                                                        <p id="elem-username" class="change-username" data-change="username" style="">
+                                                            {% if userinfo.first_name %}{{ userinfo.first_name }}{% endif %}
+                                                        </p>
+                                                        <p id="default-username" style="display: none;">
+                                                            你还未设置昵称
+                                                        </p>
+                                                        <form id="change-username" action="{% url 'backstage:userInfo' %}" method="POST" style="display: none;">
+                                                            {% csrf_token %}
+                                                            <div class="form-group">
+                                                                <div class="controls">
+                                                                    <input name="first_name" type="text" class="form-control filled" value="{% if userinfo.first_name %}{{ userinfo.first_name }}{% endif %}" required="">
+                                                                </div>
+                                                            </div>
+                                                            <input type="submit" class="btn btn-primary" value="修改">
+                                                            <button type="button" class="btn btn-default" data-dismiss="form"><span>取消</span></button>
+                                                        </form>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:;" class="btn btn-primary btn-outline pull-right" data-toggle="form" data-target="#change-info" data-change=".change-info">
+									                        <span>编辑</span>
+									                    </a>
+                                                        <h4>个人简介</h4>
+                                                        <p id="elem-info" class="change-info" data-change="info" style="">
+                                                            {% if userinfo.introduction %}{{ userinfo.introduction }}{% endif %}
+                                                        </p>
+                                                        <p id="default-info" style="display: none;">
+                                                            你还未填写个人简介
+                                                        </p>
+                                                        <form id="change-info" action="{% url 'backstage:userInfo' %}" method="POST" style="display: none;">
+                                                            {% csrf_token %}
+                                                            <div class="form-group">
+                                                                <div class="controls">
+                                                                    <textarea name="introduction" type="text" class="form-control" maxlength="500">{% if userinfo.introduction %}{{ userinfo.introduction }}{% endif %}</textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input type="submit" class="btn btn-primary" value="修改">
+                                                                <button type="button" class="btn btn-default" data-dismiss="form"><span>取消</span></button>
+                                                            </div>
+                                                        </form>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:;" class="btn btn-primary btn-outline pull-right" data-toggle="form" data-target="#change-email" data-change=".change-email">
+									                        <span>编辑</span>
+									                    </a>
+                                                        <h4>Email</h4>
+                                                        <p id="elem-email" class="change-email" data-change="email" style="">
+                                                            {% if userinfo.email %}{{ userinfo.email }}{% endif %}
+                                                        </p>
+                                                        <p id="default-email" style="display: none;">
+                                                            还未设置邮箱
+                                                        </p>
+                                                        <form id="change-email" action="{% url 'backstage:userInfo' %}" method="POST" style="display: none;">
+                                                            {% csrf_token %}
+                                                            <div class="form-group">
+                                                                <div class="controls">
+                                                                    <input name="email" type="text" class="form-control filled" value="{% if userinfo.email %}{{ userinfo.email }}{% endif %}" required="">
+                                                                </div>
+                                                            </div>
+                                                            <input type="submit" class="btn btn-primary" value="修改">
+                                                            <button type="button" class="btn btn-default" data-dismiss="form"><span>取消</span></button>
+                                                        </form>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:;" class="btn btn-primary btn-outline pull-right" data-toggle="form" data-target="#change-qq" data-change=".change-qq">
+									                        <span>编辑</span>
+									                    </a>
+                                                        <h4>QQ</h4>
+                                                        <p id="elem-qq" class="change-qq" data-change="qq" style="">
+                                                            {% if userinfo.qq %}{{ userinfo.qq }}{% endif %}
+                                                        </p>
+                                                        <p id="default-qq" style="display: none;">
+                                                            还未设置qq
+                                                        </p>
+                                                        <form id="change-qq" action="{% url 'backstage:userInfo' %}" method="POST" style="display: none;">
+                                                            {% csrf_token %}
+                                                            <div class="form-group">
+                                                                <div class="controls">
+                                                                    <input name="qq" type="text" class="form-control filled" value="{% if userinfo.qq %}{{ userinfo.qq }}{% endif %}" required="">
+                                                                </div>
+                                                            </div>
+                                                            <input type="submit" class="btn btn-primary" value="修改">
+                                                            <button type="button" class="btn btn-default" data-dismiss="form"><span>取消</span></button>
+                                                        </form>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:;" class="btn btn-primary btn-outline pull-right" data-toggle="form" data-target="#change-mobile" data-change=".change-mobile">
+									                        <span>编辑</span>
+									                    </a>
+                                                        <h4>手机号</h4>
+                                                        <p id="elem-mobile" class="change-mobile" data-change="mobile" style="">
+                                                            {% if userinfo.phone %}{{ userinfo.phone }}{% endif %}
+                                                        </p>
+                                                        <p id="default-mobile" style="display: none;">
+                                                            还未设置手机号
+                                                        </p>
+                                                        <form id="change-mobile" action="{% url 'backstage:userInfo' %}" method="POST" style="display: none;">
+                                                            {% csrf_token %}
+                                                            <div class="form-group">
+                                                                <div class="controls">
+                                                                    <input name="phone" type="text" class="form-control filled" value="{% if userinfo.phone %}{{ userinfo.phone }}{% endif %}" required="">
+                                                                </div>
+                                                            </div>
+                                                            <input type="submit" class="btn btn-primary" value="修改">
+                                                            <button type="button" class="btn btn-default" data-dismiss="form"><span>取消</span></button>
+                                                        </form>
+                                                    </li>
+                                                    <li>
+                                                        <h4>性别</h4>
+                                                        <div class="disabled">
+                                                            <form action="{% url 'backstage:userInfo' %}" method="POST" id="gender_radio" class="form-inline">
+                                                                {% csrf_token %}
+                                                                <div class="form-group">
+                                                                    <div class="radio">
+                                                                        <label>
+                                                                            <input type="radio" name="sex" class="optionsRadios" value="male" {% if userinfo.sex == 'male' %}
+                                                                            checked="checked"
+                                                                            {% endif %}>
+                                                                            男
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="radio">
+                                                                        <label>
+                                                                            <input type="radio" name="sex" class="optionsRadios" value="female" {% if userinfo.sex == 'female' %}
+                                                                            checked="checked"
+                                                                            {% endif %}> 女
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                                <div id="gender_radio_msg" class="alert alert-success">
+                                                                    更改成功
+                                                                </div>
+                                                            </form>
+                                                            <div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <h4>出生日期</h4>
+                                                            <form action="{% url 'backstage:userInfo' %}" method="POST" id="user_birday" class="form-inline">
+                                                                {% csrf_token %}
+                                                                <div class="form-group">
+                                                                    <input type="date" id="datetimepicker" name="birth" class="form-control" value="{{ userinfo.birth | iriencode }}" placeholder="">
+                                                                </div>
+                                                                <input type="button" class="btn btn-primary pull-right" value="修改出生日期" id="set_birday">
+                                                            </form>
+                                                            <div id="birday_msg" class="alert alert-success">
+                                                                更改成功
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div>
+                                                            <div style="height: 10px"></div>
+                                                            <a href="javascript:;" class="btn btn-primary btn-outline pull-right" data-toggle="form" data-target="#change-pwd">
+										                        <span>修改密码</span>
+										                    </a>
+                                                            <h4>密码</h4>
+                                                            <form id="change-pwd" action="{% url 'backstage:userInfo' %}" method="POST" style="display: none;">
+                                                                {% csrf_token %}
+                                                                <div class="form-group">
+                                                                    <div class="controls">
+                                                                        <input name="password" type="text" class="form-control filled" placeholder="输入新密码">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <div class="controls">
+                                                                        <input name="password1" type="text" class="form-control filled" placeholder="再次输入新密码">
+                                                                    </div>
+                                                                </div>
+                                                                <div id="pwd_msg" class="alert alert-danger">
+                                                                </div>
+                                                                <input type="button" class="btn btn-primary" value="修改" id="set_pwd">
+                                                                <button type="button" class="btn btn-default" data-dismiss="form"><span>取消</span></button>
+                                                            </form>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <a href="{% url 'backstage:userAccoundAll' %}" class="btn btn-primary" role="button">返回</a>
+                                </div>
+                                <input type="hidden" value="{{ msg }}" id="success_msg">
+                                <style type="text/css">
+	                                #gender_radio_msg {
+	                                    display: none
+	                                }
+
+	                                #birday_msg {
+	                                    display: none
+	                                }
+
+	                                #img_box {
+	                                    width: auto;
+	                                    height: auto;
+	                                    position: relative;
+	                                    opacity: 1;
+	                                    z-index: 1000;
+	                                }
+
+	                                #pwd_msg {
+	                                    display: none;
+	                                }
+                                </style>
+                                <script type="text/javascript">
+                                	
+	                                $('.optionsRadios').click(function(e) {
+	                                    var g = $('#gender_radio [name="sex"]:checked').val();
+	                                    var token = $('#gender_radio [name="csrfmiddlewaretoken"]').val();
+	                                    var form = new FormData();
+	                                    form.append("sex", g);
+	                                    form.append("csrfmiddlewaretoken", token);
+	                                    $.ajax({
+	                                        type: 'POST',
+	                                        url: '{% url "backstage:userInfo" %}',
+	                                        processData: false,
+	                                        contentType: false,
+	                                        data: form,
+	                                        success: function(response) {
+	                                            window.location.href = '{% url "backstage:userInfo" %}';
+	                                        },
+	                                        error: function(response) {
+	                                            getMessage();
+	                                        }
+	                                    })
+	                                });
+	                                
+
+	                                $('#set_birday').click(function(e) {
+	                                    var form = new FormData(document.getElementById("user_birday"));
+	                                    $.ajax({
+	                                        type: 'POST',
+	                                        url: '{% url "backstage:userInfo" %}',
+	                                        processData: false,
+	                                        contentType: false,
+	                                        data: form,
+	                                        success: function(response) {
+	                                            $('#birday_msg').show();
+	                                            setTimeout(function() {
+	                                                $('#birday_msg').hide();
+	                                            }, 1500);
+	                                        },
+	                                        error: function(response) {
+	                                            $('#birday_msg').show();
+	                                            setTimeout(function() {
+	                                                $('#birday_msg').hide();
+	                                            }, 1500);
+	                                        }
+	                                    })
+	                                });
+
+	                                $('#set_pwd').click(function(e) {
+	                                    var pwd = $('#change-pwd [name="password"]').val()
+	                                    var pwd1 = $('#change-pwd [name="password1"]').val()
+	                                    if (pwd != pwd1) {
+	                                        $("#pwd_msg").text('两次密码不一样').show()
+	                                        return false
+	                                    }
+
+	                                    var token = $('#change-pwd [name="csrfmiddlewaretoken"]').val();
+
+	                                    // var form = new FormData(document.getElementById("gender_radio"))
+	                                    var form = new FormData();
+	                                    form.append("password", pwd);
+	                                    form.append("csrfmiddlewaretoken", token);
+	                                    $.ajax({
+	                                        type: 'POST',
+	                                        url: '{% url "backstage:userInfo" %}',
+	                                        // data:'json',
+	                                        processData: false,
+	                                        contentType: false,
+	                                        data: form,
+	                                        success: function(response) {
+	                                            getMessage();
+                                                getUserInfo(function (data) {
+                                                    console.log(data);
+                                                    $('#elem-username').text(data['first_name']);
+                                                    $('#elem-info').text(data['introduction']);
+                                                    $('#elem-email').text(data['email']);
+                                                    $('#elem-qq').text(data['qq']);
+                                                    $('#elem-mobile').text(data['phone']);
+                                                });
+	                                        },
+	                                        error: function(response) {
+	                                            window.location.href = '/';
+	                                        }
+	                                    })
+	                                });
+	                                $('#pwd_msg').click(function(e) {
+	                                    $('#pwd_msg').hide()
+	                                });
+	                                $('form').submit(function(){
+	                                	let form = new FormData(this);
+	                                	console.log(form);
+	                                	$.ajax({
+	                                        type: 'POST',
+	                                        url: '{% url "backstage:userInfo" %}',
+	                                        processData: false,
+	                                        contentType: false,
+	                                        data: form,
+	                                        success: function(response) {
+	                                            window.location.href = '{% url "backstage:userInfo" %}';
+	                                        },
+	                                        error: function(response) {
+	                                            getMessage();
+                                                getUserInfo(function (data) {
+                                                    console.log(data);
+                                                    $('#elem-username').text(data['first_name']);
+                                                    $('#elem-info').text(data['introduction']);
+                                                    $('#elem-email').text(data['email']);
+                                                    $('#elem-qq').text(data['qq']);
+                                                    $('#elem-mobile').text(data['phone']);
+                                                });
+	                                        }
+	                                    });
+	                                	$('a').show();
+	                                	$(this).hide();
+	                                    return false;
+	                                });
+                                    function getMessage(){
+                                        $.ajax({
+                                            type:'get',
+                                            url: '{% url "backstage:getMessage" %}',
+                                            success: function(response){
+	                                            console.log(response);
+                                                let content;
+                                                response.responseText? content=response.responseText: content=response;
+                                                document.getElementById('success_msg').value = content;
+                                            },
+                                            error: function(response){
+	                                            console.log(response);
+                                                let content;
+                                                response.responseText? content=response.responseText: content=response;
+                                                document.getElementById('success_msg').value = content;
+                                            },
+                                        });
+                                    }
+                                    getMessage();
+                                    function getUserInfo(blackfn) {
+                                        $.ajax({
+                                            url: '{% url "backstage:getUserInfo" 'currentUser' %}',
+                                            type: 'get',
+                                            success: blackfn,
+                                            error: blackfn
+                                        })
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <script src="{% static 'backstage/js/highlight.min.js' %}"></script>
+        <script src="{% static 'backstage/js/toastr.min.js' %}"></script>
+        <script src="{% static 'backstage/js/bundle-66d4e33989.js' %}"></script>
+        <script>
+			
+			function ID(objname){
+				return document.getElementById(objname) || false;
+			}
+
+            setInterval(function () {
+                elems = ['elem-username', 'elem-info', 'elem-email', 'elem-qq', 'elem-mobile'];
+                defaults = ['default-username', 'default-info', 'default-email', 'default-qq', 'default-mobile'];
+
+                for (var i = 0; i < defaults.length; i++) {
+                	var current_default = defaults[i];
+                	var current_elem = elems[i];
+                	if (ID(current_elem).innerText.length <= 0){
+                    	if (ID(current_elem).style.display=='block') ID(current_elem).style.display='none';
+	                	if (ID(current_default).style.display=='none') ID(current_default).style.display='block'
+	                } else {
+	                	if (ID(current_elem).style.display=='none') ID(current_elem).style.display='block';
+	                	if (ID(current_default).style.display=='block') ID(current_default).style.display='none';
+	                }
+                }
+
+               	let successMsg = document.getElementById('success_msg');
+               	if (successMsg.value){
+               		toastr.success(successMsg.value, '提示');
+               		successMsg.value = '';
+               	}
+            }, 100);
+        </script>
+    </div>
+</body>
+
+</html>
